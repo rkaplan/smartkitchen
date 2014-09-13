@@ -23,6 +23,9 @@
     image: String,
     full_weight: Number,
     current_weight: Number,
+    present: {type: Boolean, "default": false},
+    lastPresent: Number,
+    location: {type: Number},
     updated_at: Number,
     version: {type: Number, "default": 1}
   });

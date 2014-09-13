@@ -6,7 +6,7 @@
   };
 
   var routeList = [
-    ["/inventory",      Routes.Inventory, 1, 0, [      "post"]]
+    ["/inventory",      Routes.Inventory, 1, 0, [      "post", "put"]]
   ];
 
   module.exports = routeList;
