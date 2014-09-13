@@ -8,7 +8,16 @@
       ControllerClass = require("../controllers/Inventory.js");
 
   handlePost = function(req, res, next){
-    
+    var controller = new ControllerClass(req._schemas);
+    controller.addItem(req.body, function(err, item){
+      if (err){
+        return res.json(500, {_err: err});
+      }
+      return res.json({
+        _err: 0,
+        id: item.id
+      });
+    });
   };
 
   dispatch = {POST: handlePost};

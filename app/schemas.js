@@ -9,13 +9,13 @@
       updateTime;
 
   updateTime = function(next){
-    this.updatedAt = new Date().getTime();
+    this.updated_at = new Date().getTime();
     next();
   };
 
   var PantryItem = new Schema({
     name: {type: String, index: true},
-    id: {type: Number, unique: true},
+    barcode: {type: Number, unique: true},
     description: String,
     manufacturer: String,
     brand: String,
@@ -23,7 +23,7 @@
     image: String,
     full_weight: Number,
     current_weight: Number,
-    updatedAt: Number,
+    updated_at: Number,
     version: {type: Number, "default": 1}
   });
 
