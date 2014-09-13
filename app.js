@@ -30,7 +30,7 @@
   app.use(express.static(path.join(__dirname, 'public')));
 
   _.each(routes, function(route){
-    var methods = route[5] || ["get"];
+    var methods = route[4] || ["get"];
 
     methods.forEach(function(method){
       var params = [];

@@ -15,7 +15,7 @@
       }
       return res.json({
         _err: 0,
-        id: item.id
+        id: item._id
       });
     });
   };
