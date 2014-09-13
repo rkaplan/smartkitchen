@@ -30,7 +30,18 @@
     version: {type: Number, "default": 1}
   });
 
+  var Recipe = new Schema({
+    title: {type: String, index: true},
+    href: String,
+    thumbnail: String,
+    ingredients: Array,
+    ingredient_names: Array,
+    version: {type: Number, "default": 1}
+  });
+
   PantryItem.pre("save", updateTime);
 
   exports.PantryItem = mongoose.model("PantryItem", PantryItem);
+  exports.Recipe = mongoose.model("Recipe", Recipe);
+
 }());

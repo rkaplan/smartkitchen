@@ -53,12 +53,25 @@
   function get_first_recipe_query(ingredients, cb) {
     get_all_recipes(ingredients, function(err, recipes) {
       if (err) return cb(err);
-      cb(err, SPECIFIC_RECIPE_API_URL + '&kimpath2=' + recipe_name(recipes[0]));
+      var recipeQuery = SPECIFIC_RECIPE_API_URL + '&kimpath2=' + recipe_name(recipes[0]);
+      cb(err, recipes[0], recipeQuery);
     });
   }
 
+  function to_schemafied_recipe(recipe) {
+    return {
+      title: recipe.title.text,
+      href: recipe.title.href.substring(0, recipe.title.href.indexOf('?')),
+      thumbnail: recipe.thumbnail.src,
+      ingredients: recipe.ingredients,
+      ingredient_names: _.map(recipe.ingredients, function(ingr) {
+        return ingr.name;
+      })
+    };
+  }
+
   function get_first_recipe(ingredients, cb) {
-    get_first_recipe_query(ingredients, function(err, recipeQuery) {
+    get_first_recipe_query(ingredients, function(err, recipe, recipeQuery) {
       if (err) return cb(err);
       request(recipeQuery, function(err, response, body) {
         if (err) return cb(err);
@@ -68,10 +81,11 @@
             var newLineIdx = entry.ingredient.indexOf('\n');
             return {
               'quantity': entry.ingredient.substring(0, newLineIdx),
-              'name': entry.ingredient.substring(newLineIdx + 1).split(',', 1)[0]
+              'name': entry.ingredient.substring(newLineIdx + 1).split(',', 1)[0].toLowerCase()
             };
           });
-          cb(err, JSON.parse(body)['results']['collection1']);
+          recipe.ingredients = normalized_entries;
+          cb(err, to_schemafied_recipe(recipe));
         } else {
           return cb({ statusCode: response.statusCode });
         }
@@ -79,13 +93,6 @@
     });
   }
 
-  get_first_recipe(['salami', 'salt'], function(err, recipe) {
-    if (err) {
-      if (err.hasOwnProperty('lastrunstatus')) {
-        console.log('ERROR: lastrunstatus: ' + err.lastrunstatus);
-      }
-    }
-    console.log(recipe);
-  });
+  exports.get_first_recipe = get_first_recipe
 
 }());
