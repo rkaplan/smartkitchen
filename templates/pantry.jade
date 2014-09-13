@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1 Your Kitchen
+
+  script(src="/socket.io/socket.io.js")
+  script(src="/javascripts/pantry_update.js")
+  ul.pantryItems
+    each item in items
+      li.pantryItem(data-id="#{item.barcode}")
+        img(src="#{item.image}", width="100px")
+        p #{item.name}

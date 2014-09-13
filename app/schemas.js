@@ -15,7 +15,7 @@
 
   var PantryItem = new Schema({
     name: {type: String, index: true},
-    barcode: {type: Number, unique: true},
+    barcode: {type: String, unique: true},
     description: String,
     manufacturer: String,
     brand: String,

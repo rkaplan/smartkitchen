@@ -18,7 +18,7 @@
 
 
 
-  prep = function base_ctrl_prep( res, req_data, blocks, cb ) {
+  prep = function base_ctrl_prep( res, req_data, cb ) {
     var self      = this,
         data      = _.extend(this.payload, req_data);
 
@@ -26,7 +26,7 @@
     data.routeName = self.getName();
     async.series([
       function(cb) { doPrePrep(data, self, cb); },
-      function(cb) { addBlocks(data, blocks, cb); },
+      //function(cb) { addBlocks(data, blocks, cb); },
       function(cb) { doPrep(data, res, self, false, cb); },
       function(cb) { doPostPrep(data, self, cb); }
     ], function(err){
@@ -98,9 +98,9 @@
     }
   };
 
-  renderView = function base_ctrl_render_view( res, data, blocks, cb ) {
+  renderView = function base_ctrl_render_view( res, data, cb ) {
     var self = this;
-    this.prep( res, data, blocks, function( err, final_data ) {
+    this.prep( res, data, function( err, final_data ) {
       if (err){
         console.log("prep error", err);
         if (_.has(err, "statusCode")){

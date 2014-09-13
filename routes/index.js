@@ -2,11 +2,13 @@
   "use strict";
 
   var Routes = {
-    Inventory: require("./Inventory.js")
+    Inventory: require("./Inventory.js"),
+    Pantry: require("./Pantry.js")
   };
 
   var routeList = [
-    ["/inventory",      Routes.Inventory, 1, 0, [      "post", "put"]]
+    ["/inventory",      Routes.Inventory, 1, 0, 1,  [      "post", "put"]],
+    ["/pantry",         Routes.Pantry,    1, 0, 0,  ["get"              ]]
   ];
 
   module.exports = routeList;

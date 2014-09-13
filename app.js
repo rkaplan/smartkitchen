@@ -7,7 +7,9 @@
       cookieParser = require('cookie-parser'),
       bodyParser   = require('body-parser'),
       conf         = require('nconf').argv().env().file({file: __dirname + '/config.json'}),
+      http         = require("http"),
       schemas      = require("./app/schemas.js"),
+      socketIo     = require("socket.io"),
       mongoose     = require("mongoose"),
       _            = require("underscore"),
 
@@ -29,8 +31,11 @@
   app.use(require('less-middleware')(path.join(__dirname, 'public')));
   app.use(express.static(path.join(__dirname, 'public')));
 
+  var server = http.Server(app);
+  var io = socketIo(server);
+
   _.each(routes, function(route){
-    var methods = route[4] || ["get"];
+    var methods = route[5] || ["get"];
 
     methods.forEach(function(method){
       var params = [];
@@ -44,6 +49,13 @@
       if (route[3]){
         params.push(function(req, res, next){
           req._conf = conf;
+          next();
+        });
+      }
+
+      if (route[4]){
+        params.push(function(req, res, next){
+          req._io = io;
           next();
         });
       }
@@ -84,7 +96,7 @@
 
   app.set('port', process.env.PORT || 3000);
 
-  var server = app.listen(app.get('port'), function() {
+  server.listen(app.get('port'), function() {
     console.log('Express server listening on port ' + server.address().port);
   });
 }());
