@@ -1,0 +1,4 @@
+{
+  "mongo": "mongodb://localhost/smartkitchen",
+  "PORT": 3000
+}
