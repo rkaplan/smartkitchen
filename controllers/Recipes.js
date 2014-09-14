@@ -25,6 +25,7 @@
       recipes.find_recipe(names, function(err, recipe){
         if (err){ return cb(err) }
         console.log(recipe);
+        data.recipe = recipe;
         cb();
       });
     });
