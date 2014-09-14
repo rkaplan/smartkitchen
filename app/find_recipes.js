@@ -37,7 +37,7 @@
       for (var i = 0; i < docs.length; i++) {
         var nmatches = num_matches(docs[i].ingredient_names, ingredients);
         results.push({
-          recipe: docs[i],
+          recipe: docs[i].toObject(),
           num_ingredients_owned: nmatches,
           num_ingredients_needed: docs[i].ingredient_names.length - nmatches
         });
@@ -76,6 +76,7 @@
           }
         });
       } else {
+        debugger;
         // successfully found a recipe in the database
         cb(null, recipe);
       }

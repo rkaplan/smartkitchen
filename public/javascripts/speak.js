@@ -62,10 +62,24 @@ $(function() {
 
   function processResults(intent, entities) {
     if (intent === 'request_recipe') {
-      // TODO: REQUEST A RECIPE
+      $.ajax({
+        type: "GET",
+        url: "/recipes",
+        success: handleGetRecipesSuccess,
+        error: errorHandler
+      });
     } else if (intent === 'Find_object') {
       // TODO: FIND AN OBJECT
     }
+  }
+
+  function handleGetRecipesSuccess(data){
+    console.log("Got recipe data", data);
+  }
+
+  function errorHandler(err){
+    console.error(err);
+    alert("Unable to connect. Please try again");
   }
 
   $('#record').click(function() {
@@ -76,4 +90,3 @@ $(function() {
   })
 
 });
-
