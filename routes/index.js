@@ -7,7 +7,8 @@
     Speak: require("./Speak.js"),
     Recipes: require("./Recipes.js")  ,
     OrderItem: require("./OrderItem.js"),
-    Say: require("./Say.js")
+    Say: require("./Say.js"),
+    WeightChange: require("./WeightChange.js")
   };
 
   var routeList = [
@@ -16,7 +17,8 @@
     ["/speak",  Routes.Speak, 1, 0,  ["get" ]],
     ["/recipes",  Routes.Recipes, 1, 0, 0,  ["get" ]]  ,
     ["/order_item",  Routes.OrderItem, 1, 0, 1,  ["post" ]],
-    ["/say",         Routes.Say,       1, 0, 1, ["post"]]
+    ["/say",         Routes.Say,       1, 0, 1, ["post"]]  ,
+    ["/weight_change",  Routes.WeightChange, 1, 0, 1,  ["post" ]]
   ];
 
   module.exports = routeList;
