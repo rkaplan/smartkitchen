@@ -29,8 +29,8 @@
       var item = items[i];
       var node = $(document.createElement("div"));
       node.addClass("pantryItem");
-      node.addClass("col-md-3");
-      node.addClass("col-md-offset1");
+      node.addClass("col-sm-3");
+      node.addClass("col-sm-offset1");
       node.attr("data-id", item.barcode);
 
       var image = $(document.createElement("img"));
