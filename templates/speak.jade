@@ -1,11 +1,20 @@
 extends layout
 
-block content
+block styles
+  link(rel='stylesheet', href='stylesheets/microphone.css')
+
+block scripts
   script(src='javascripts/microphone.js')
   script(src='javascripts/speak.js')
-  p hello
 
-  #microphone
-  pre#result.
-    
-  #info
+block content
+  .row
+    .col-md-12
+      #record.wit-microphone
+        .mic.mic-box.icon-wit-mic
+        svg.mic-svg.mic-box
+          path(stroke='#eee', stroke-width='5', fill='none', d='M0,0')
+
+      pre#result.
+        
+      #info

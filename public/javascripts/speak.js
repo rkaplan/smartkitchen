@@ -1,50 +1,79 @@
-var mic = new Wit.Microphone(document.getElementById("microphone"));
-var info = function (msg) {
-  document.getElementById("info").innerHTML = msg;
-};
+$(function() {
 
-mic.onready = function () {
-  info("Microphone is ready to record");
-};
+  function kv (k, v) {
+    if (toString.call(v) !== "[object String]") {
+      v = JSON.stringify(v);
+    }
+    return k + "=" + v + "\n";
+  }
 
-mic.onaudiostart = function () {
-  info("Recording started");
-};
+  var mic = new Wit.Microphone(document.getElementById("microphone"));
+  var isRecording = false;
 
-mic.onaudioend = function () {
-  info("Recording stopped, processing started");
-};
+  var info = function (msg) {
+    document.getElementById("info").innerHTML = msg;
+  };
 
-mic.onerror = function (err) {
-  info("Error: " + err);
-};
+  mic.onready = function () {
+    info("Microphone is ready to record");
+  };
 
-mic.onresult = function (intent, entities) {
-  var r = kv("intent", intent);
-  for (var k in entities) {
-    var e = entities[k];
-    if (!(e instanceof Array)) {
-      r += kv(k, e.value);
-    } else {
-      for (var i = 0; i < e.length; i++) {
-        r += kv(k, e[i].value);
+  mic.onaudiostart = function () {
+    info("Recording started");
+  };
+
+  mic.onaudioend = function () {
+    info("Recording stopped, processing started");
+  };
+
+  mic.onerror = function (err) {
+    info("Error: " + err);
+  };
+
+  mic.onresult = function (intent, entities) {
+    processResults(intent, entities);
+    var r = kv("intent", intent);
+    for (var k in entities) {
+      var e = entities[k];
+      if (!(e instanceof Array)) {
+        r += kv(k, e.value);
+      } else {
+        for (var i = 0; i < e.length; i++) {
+          r += kv(k, e[i].value);
+        }
       }
     }
+    document.getElementById("result").innerHTML = r;
+  };
+
+  mic.connect("ERMHYREEK3UBEUZRAFPNYI2D23T3OUZO");
+
+  function startRecording() {
+    isRecording = true;
+    mic.start();
+    $('.wit-microphone').addClass('active');
   }
-  document.getElementById("result").innerHTML = r;
-};
 
-mic.connect("ERMHYREEK3UBEUZRAFPNYI2D23T3OUZO");
-
-// mic.start();
-// mic.stop();
-function kv (k, v) {
-  if (toString.call(v) !== "[object String]") {
-    v = JSON.stringify(v);
+  function stopRecording() {
+    isRecording = false;
+    mic.stop();
+    $('.wit-microphone').removeClass('active');
   }
-  return k + "=" + v + "\\n";
-}
 
+  function processResults(intent, entities) {
+    if (intent === 'request_recipe') {
+      // TODO: REQUEST A RECIPE
+    } else if (intent === 'Find_object') {
+      // TODO: FIND AN OBJECT
+    }
+  }
 
+  $('#record').click(function() {
+    if (!isRecording)
+      startRecording();
+    else
+      stopRecording();
+  })
 
+});
 
