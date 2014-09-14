@@ -13,12 +13,15 @@
       if (!item){ return next(404) }
       var options = {
         host: req._conf.get("imp_host"),
-        path: req._conf.get("imp_path") + "?led=" + item.location,
+        path: req._conf.get("imp_path"),
         mathod: "GET",
-        scheme: "https"
+        scheme: "http"
+      };
+      var data = {
+        led: item.location
       };
       console.log("doing request", options);
-      request.request(options, {}, "", function(err){
+      request.request(options, data, "", function(err){
         if (err){
           console.error(err);
         }
