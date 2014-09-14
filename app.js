@@ -36,6 +36,7 @@
     req.on('end', function() {
       if (req.rawBody && req.rawBody.length && req.rawBody !== ""){
         try{
+          console.log("body", req.rawBody);
           req.body = JSON.parse(req.rawBody);
         } catch (e){
           console.error(e);
