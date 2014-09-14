@@ -74,8 +74,12 @@ $(function() {
       });
     } else if (intent === 'Find_object') {
       // TODO: FIND AN OBJECT
-    } else if (intent === "affirmative") { // change this name when ruffles does it
-      yesCallback();
+    } else if (intent === "affirmative") {
+      if (yesCallback){
+        yesCallback();
+      }
+    } else {
+      say("Sorry, what did you say?");
     }
   }
 
@@ -96,7 +100,7 @@ $(function() {
           }),
           dataType: "json",
           success: function(){
-            say("OK. " + ingredient + "should be here soon");
+            say("OK. " + ingredient + " should be here soon");
           },
           failure: errorHandler
         });

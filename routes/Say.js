@@ -7,7 +7,7 @@
 
   handlePost = function(req, res, next){
     req._io.emit("say", {
-      name: req.body.msg
+      msg: req.body.msg
     });
     return res.json({
       _err: 0

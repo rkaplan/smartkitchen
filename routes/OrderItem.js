@@ -6,6 +6,7 @@
       handler, dispatch;
 
   handlePost = function(req, res, next){
+    debugger;
     req._io.emit("order_item", {
       name: req.body.name
     });
@@ -14,8 +15,9 @@
     });
   };
 
-  dispatch = {post: handlePost};
+  dispatch = {POST: handlePost};
   handler = function(req, res, next){
+    debugger;
     if (_.has(dispatch, req.method)){
       return dispatch[req.method](req, res, next);
     }
