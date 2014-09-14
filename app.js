@@ -25,7 +25,27 @@
 
   app.use(favicon());
   app.use(logger('dev'));
-  app.use(bodyParser.json());
+  app.use(function(req, res, next) {
+    req.rawBody = '';
+    req.setEncoding('utf8');
+
+    req.on('data', function(chunk) {
+      req.rawBody += chunk;
+    });
+
+    req.on('end', function() {
+      if (req.rawBody && req.rawBody.length && req.rawBody !== ""){
+        try{
+          req.body = JSON.parse(req.rawBody);
+        } catch (e){
+          console.error(e);
+          return next(400);
+        }
+      }
+      next();
+    });
+  });
+  //app.use(bodyParser.json());
   app.use(bodyParser.urlencoded());
   app.use(cookieParser());
   app.use(require('less-middleware')(path.join(__dirname, 'public')));

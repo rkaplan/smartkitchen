@@ -24,6 +24,9 @@
 
   handlePut = function(req, res, next){
     var controller = new ControllerClass(req._schemas);
+    console.log("body", req.body);
+    console.log("adding", req.body.added);
+    console.log("removing", req.body.removed);
     async.parallel([
       function(cb){ controller.itemsPresent(req.body.added, cb) },
       function(cb){ controller.itemsRemoved(req.body.removed, cb) },
@@ -50,7 +53,7 @@
 
     // need to get added to include item details
     var queue = async.queue(function(item, cb){
-      schemas.PantryItem.findOne({barcode: item.id}, function(err, dbItem){
+      schemas.PantryItem.findOne({barcode: item.id.toString()}, function(err, dbItem){
         if (err){ cb(err) }
 
         added.push(dbItem);
@@ -59,7 +62,6 @@
     });
     queue.drain = function(err){
       if (err){ cb(err) }
-
       io.emit("pantry_update", {
         added: added,
         removed: body.removed
