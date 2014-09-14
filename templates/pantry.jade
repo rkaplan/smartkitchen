@@ -5,10 +5,11 @@ block content
 
   script(src="/socket.io/socket.io.js")
   script(src="/javascripts/pantry_update.js")
-  .pantryItems
+  table.pantryItems
     each row in rows
-      .row
+      tr
         each item in row
-            .pantryItem.col-sm-3.col-sm-offset-1(data-id="#{item.barcode}")
+            td.pantryItem(data-id="#{item.barcode}", height="100")
               img(src="#{item.image}")
-              p #{item.name}
+              .textContainer
+                p(style="text-align: center;") #{item.name}
