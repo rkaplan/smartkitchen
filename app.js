@@ -34,7 +34,9 @@
     });
 
     req.on('end', function() {
-      req.body = JSON.parse(req.rawBody);
+      if (req.rawBody && req.rawBody.length && req.rawBody !== ""){
+        req.body = JSON.parse(req.rawBody);
+      }
       next();
     });
   });
