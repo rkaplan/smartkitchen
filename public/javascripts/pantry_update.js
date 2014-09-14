@@ -27,6 +27,10 @@
     var count = $(".pantryItem").length;
     for (var i = 0; i < items.length; i++){
       var item = items[i];
+      var elem = $("[data-id=" + item.barcode + "]");
+      if (elem){
+        continue;
+      }
       var node = $(document.createElement("td"));
       node.addClass("pantryItem");
       node.attr("height", "100");
