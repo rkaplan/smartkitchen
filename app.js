@@ -35,7 +35,12 @@
 
     req.on('end', function() {
       if (req.rawBody && req.rawBody.length && req.rawBody !== ""){
-        req.body = JSON.parse(req.rawBody);
+        try{
+          req.body = JSON.parse(req.rawBody);
+        } catch (e){
+          console.error(e);
+          return next(400);
+        }
       }
       next();
     });
