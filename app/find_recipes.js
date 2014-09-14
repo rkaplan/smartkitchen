@@ -6,7 +6,7 @@
       mongoose = require('mongoose'),
       _ = require('underscore');
 
-  mongoose.connect(conf.get("mongo"));
+  //mongoose.connect(conf.get("mongo"));
 
   function find_saved_recipe_with_all_ingredients(ingredients, cb) {
     schemas.Recipe.findOne({ingredient_names : {'$all' : ingredients }}, function(err, doc) {
