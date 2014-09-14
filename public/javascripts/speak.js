@@ -78,7 +78,10 @@ $(function() {
       if (yesCallback){
         yesCallback();
       }
-    } else {
+    } else if (intent === "negative"){
+      yesCallback = null;
+      say ("OK");
+    }else {
       say("Sorry, what did you say?");
     }
   }
