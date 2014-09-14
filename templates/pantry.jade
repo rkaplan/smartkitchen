@@ -6,10 +6,16 @@ block content
   script(src="/socket.io/socket.io.js")
   script(src="/javascripts/pantry_update.js")
   table.pantryItems
-    each row in rows
+    thead
       tr
-        each item in row
-            td.pantryItem(data-id="#{item.barcode}", height="100")
-              img(src="#{item.image}")
-              .textContainer
-                p #{item.name}
+        td &nbsp;
+        td &nbsp;
+        td &nbsp;
+    tbody
+      each row in rows
+        tr
+          each item in row
+              td.pantryItem(data-id="#{item.barcode}", height="100")
+                img(src="#{item.image}")
+                .textContainer
+                  p #{item.name}
