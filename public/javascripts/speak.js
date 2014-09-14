@@ -73,7 +73,11 @@ $(function() {
         error: errorHandler
       });
     } else if (intent === 'Find_object') {
-      // TODO: FIND AN OBJECT
+      $.ajax({
+        type: "POST",
+        url: "/find_item",
+        data: JSON.stringify({ "name" : entities.ingredient.value })
+      });
     } else if (intent === "affirmative") {
       if (yesCallback){
         yesCallback();
