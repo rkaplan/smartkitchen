@@ -5,7 +5,7 @@
       conf = require('nconf').argv().env().file({file: __dirname + '/../config.json'}),
       mongoose = require('mongoose');
 
-  mongoose.connect(conf.get("mongo"));
+  //mongoose.connect(conf.get("mongo"));
 
   function find_saved_recipe_with_all_ingredients(ingredients, cb) {
     schemas.Recipe.findOne({ingredient_names : {'$all' : ingredients }}, function(err, doc) {
