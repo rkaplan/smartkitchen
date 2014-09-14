@@ -76,7 +76,6 @@
           }
         });
       } else {
-        debugger;
         // successfully found a recipe in the database
         cb(null, recipe);
       }

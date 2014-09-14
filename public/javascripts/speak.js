@@ -1,4 +1,6 @@
+/*globals Wit, toString*/
 $(function() {
+  "use strict";
 
   function kv (k, v) {
     if (toString.call(v) !== "[object String]") {
@@ -9,6 +11,8 @@ $(function() {
 
   var mic = new Wit.Microphone(document.getElementById("microphone"));
   var isRecording = false;
+
+  var yesCallback = null;
 
   var info = function (msg) {
     document.getElementById("info").innerHTML = msg;
@@ -70,11 +74,51 @@ $(function() {
       });
     } else if (intent === 'Find_object') {
       // TODO: FIND AN OBJECT
+    } else if (intent === "affirmative") { // change this name when ruffles does it
+      yesCallback();
     }
   }
 
   function handleGetRecipesSuccess(data){
     console.log("Got recipe data", data);
+    var title = data.recipe.recipe.title;
+    if (data.recipe.num_ingredients_needed === 0){
+      say("You have everything you need to make " + title);
+    } else {
+      var ingredient = data.recipe.ingredients_needed[0];
+      say("In order to make " + title + " you need " + ingredient + "." + " Would you like me to order it for you?");
+      waitForYes(function(){
+        $.ajax({
+          type: "POST",
+          url: "/order_item",
+          data: JSON.stringify({
+            name: ingredient
+          }),
+          dataType: "json",
+          success: function(){
+            say("OK. " + ingredient + "should be here soon");
+          },
+          failure: errorHandler
+        });
+      });
+    }
+  }
+
+  function say(msg){
+    // TODO: Implement say
+    $.ajax({
+      url: "/say",
+      type: "POST",
+      data: JSON.stringify({
+        msg: msg
+      }),
+      dataType: "json"
+    });
+    console.log("Saying " + msg);
+  }
+
+  function waitForYes(cb){
+    yesCallback = cb;
   }
 
   function errorHandler(err){
@@ -83,10 +127,11 @@ $(function() {
   }
 
   $('#record').click(function() {
-    if (!isRecording)
+    if (!isRecording){
       startRecording();
-    else
+    } else {
       stopRecording();
-  })
+    }
+  });
 
 });
