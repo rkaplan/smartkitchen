@@ -10,7 +10,7 @@
 
   function find_saved_recipe_with_all_ingredients(ingredients, cb) {
     schemas.Recipe.findOne({ingredient_names : {'$all' : ingredients }}, function(err, doc) {
-      if (err) return cb(err);
+      if (err){ return cb(err); }
       return cb(null, doc);
     });
   }
@@ -29,10 +29,10 @@
   function find_recipe(ingredients, cb) {
     ingredients = _.map(function(ingr) { return ingr.toLowerCase(); });
     find_saved_recipe(ingredients, function(err, recipe) {
-      if (err) return cb(err);
+      if (err){ return cb(err); }
       if (recipe === null) {
         find_new_recipe_by_scraping(ingredients, function(err, recipe) {
-          if (err) return cb(err);
+          if (err){ return cb(err); }
           else {
             console.log('TODO: implement live scraping search as a fallback if our DB has no good results');
           }
@@ -50,6 +50,6 @@
   //   console.log(err);
   //   console.log(result);
   // });
-  exports.find_recipe = find_recipe
+  exports.find_recipe = find_recipe;
 
 }());
