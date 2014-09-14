@@ -60,7 +60,7 @@
 
   _ptype.addItem = function (itemData, cb){
     var pantryItem = new this.schemas.PantryItem({
-      name: itemData.name,
+      name: itemData.name.toLowerCase(),
       barcode: itemData.barcode,
       description: itemData.description,
       manufacturer: itemData.manufacturer,
