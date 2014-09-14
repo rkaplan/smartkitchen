@@ -19,10 +19,24 @@
   _ptype.prePrep = function(data, cb){
     this.schemas.PantryItem.find({present: true}, function(err, items){
       if (err){ return cb(err) }
-      data.items = items;
+      data.rows = getRows(items);
+
       cb();
     });
   };
+
+
+  function getRows(items) {
+    return items.reduce(function (prev, item, i) {
+      if(i % 3 === 0){
+        prev.push([item]);
+      }else{
+        prev[prev.length - 1].push(item);
+      }
+
+      return prev;
+    }, []);
+  }
 
   module.exports = PantryCtrl;
 }());

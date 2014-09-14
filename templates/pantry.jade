@@ -6,7 +6,9 @@ block content
   script(src="/socket.io/socket.io.js")
   script(src="/javascripts/pantry_update.js")
   .pantryItems
-    each item in items
-      .pantryItem(data-id="#{item.barcode}")
-        img(src="#{item.image}", height="300px")
-        p #{item.name}
+    each row in rows
+      .row
+        each item in row
+            .pantryItem.col-md-3.col-md-offset1(data-id="#{item.barcode}")
+              img(src="#{item.image}")
+              p #{item.name}

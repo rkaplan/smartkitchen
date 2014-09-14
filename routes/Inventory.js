@@ -50,7 +50,7 @@
 
     // need to get added to include item details
     var queue = async.queue(function(item, cb){
-      schemas.PantryItem.findOne({barcode: item.id}, function(err, dbItem){
+      schemas.PantryItem.findOne({barcode: item.id.toString()}, function(err, dbItem){
         if (err){ cb(err) }
 
         added.push(dbItem);
@@ -59,7 +59,6 @@
     });
     queue.drain = function(err){
       if (err){ cb(err) }
-
       io.emit("pantry_update", {
         added: added,
         removed: body.removed

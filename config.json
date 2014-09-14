@@ -1,4 +1,4 @@
 {
-  "mongo": "mongodb://heroku_app29522386:he5su0r2sjshfgnaudnf8f8t2r@ds035310.mongolab.com:35310/heroku_app29522386",
+  "mongo": "mongodb://localhost/smartkitchen",
   "PORT": 3000
 }

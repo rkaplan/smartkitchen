@@ -24,10 +24,13 @@
 
   addItems = function(items){
     var pantryItems = $(".pantryItems");
+    var count = $(".pantryItem").length;
     for (var i = 0; i < items.length; i++){
       var item = items[i];
-      var node = $(document.createElement("li"));
+      var node = $(document.createElement("div"));
       node.addClass("pantryItem");
+      node.addClass("col-md-3");
+      node.addClass("col-md-offset1");
       node.attr("data-id", item.barcode);
 
       var image = $(document.createElement("img"));
@@ -39,7 +42,15 @@
       name.text(item.name);
       node.append(name);
 
-      pantryItems.append(node);
+      count++;
+      if (count % 3 === 0){
+        var row = $(document.createElement("row"));
+        row.addClass("row");
+        row.append(node);
+        pantryItems.append(row);
+      } else {
+        $(".pantryItems .row").last().append(node);
+      }
     }
   };
 }());
