@@ -25,6 +25,8 @@
   handlePut = function(req, res, next){
     var controller = new ControllerClass(req._schemas);
     var body = JSON.parse(req.rawBody);
+    console.log("raw body text", req.rawBody);
+    console.log("body", body);
     console.log("body", req.body);
     console.log("adding", req.body.added);
     console.log("removing", req.body.removed);
