@@ -3,7 +3,8 @@
 
   var schemas = require('../app/schemas.js'),
       conf = require('nconf').argv().env().file({file: __dirname + '/../config.json'}),
-      mongoose = require('mongoose');
+      mongoose = require('mongoose'),
+      _ = require('underscore');
 
   mongoose.connect(conf.get("mongo"));
 
