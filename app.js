@@ -34,10 +34,11 @@
     });
 
     req.on('end', function() {
+      req.body = JSON.parse(req.rawBody);
       next();
     });
   });
-  app.use(bodyParser.json());
+  //app.use(bodyParser.json());
   app.use(bodyParser.urlencoded());
   app.use(cookieParser());
   app.use(require('less-middleware')(path.join(__dirname, 'public')));
