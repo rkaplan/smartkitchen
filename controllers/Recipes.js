@@ -16,7 +16,13 @@
 
   _ptype.prePrep = function(data, cb){
     this.schemas.PantryItem.find({present: true}, function(err, items){
-      if (err){ return cb(err) }
+      if (err){
+        if (err.not_yet_implemented){
+          data.recipe = null;
+          return cb();
+        }
+        return cb(err);
+      }
 
       var names = [];
       for (var i = 0; i < items.length; i++){

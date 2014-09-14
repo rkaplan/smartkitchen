@@ -49,6 +49,9 @@
 
       var chosenRecipe = results[0];
       var stillNeeded = [];
+      if (!chosenRecipe){
+        return cb(err, null);
+      }
       for (var i = 0; i < chosenRecipe.recipe.ingredient_names.length; i++) {
         if (ingredients.indexOf(chosenRecipe.recipe.ingredient_names[i]) === -1) {
           stillNeeded.push(chosenRecipe.recipe.ingredient_names[i]);

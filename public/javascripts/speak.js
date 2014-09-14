@@ -92,6 +92,9 @@ $(function() {
 
   function handleGetRecipesSuccess(data){
     console.log("Got recipe data", data);
+    if (!data.recipe){
+      return say ("Sorry, I can't make anything with those ingredients");
+    }
     var title = data.recipe.recipe.title;
     if (data.recipe.num_ingredients_needed === 0){
       say("You have everything you need to make " + title);
