@@ -26,6 +26,7 @@
   }
 
   function find_recipe(ingredients, cb) {
+    ingredients = _.map(function(ingr) { return ingr.toLowerCase(); });
     find_saved_recipe(ingredients, function(err, recipe) {
       if (err) return cb(err);
       if (recipe === null) {
