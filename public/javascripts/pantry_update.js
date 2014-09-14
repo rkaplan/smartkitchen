@@ -28,7 +28,7 @@
     for (var i = 0; i < items.length; i++){
       var item = items[i];
       var elem = $("[data-id=" + item.barcode + "]");
-      if (elem){
+      if (elem && elem.length){
         continue;
       }
       var node = $(document.createElement("td"));
