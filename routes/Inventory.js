@@ -24,6 +24,9 @@
 
   handlePut = function(req, res, next){
     var controller = new ControllerClass(req._schemas);
+    console.log("body", req.body);
+    console.log("adding", req.body.added);
+    console.log("removing", req.body.removed);
     async.parallel([
       function(cb){ controller.itemsPresent(req.body.added, cb) },
       function(cb){ controller.itemsRemoved(req.body.removed, cb) },
